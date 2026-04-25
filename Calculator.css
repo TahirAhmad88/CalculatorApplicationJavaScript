@@ -1,10 +1,4 @@
-/* It's about Classic Calculator Project. */
-
-/* @font-face {
-    font-family: 'digital-7';
-    src: url(fonts/digital-7.ttf);
-    font-style: normal;
-} */
+/* Responsive Classic Calculator Styles */
 
 * {
     padding: 0;
@@ -12,108 +6,93 @@
     box-sizing: border-box;
 }
 
-body { /*This is the area except of calculator.*/
+body {
     background-color: #fafafa;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh; /*vh: Relative to 1% viewport height.*/
+    min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
+    padding: 20px;
 }
 
-.container {  /*This is the black area of calculator.*/
+.container {
     background-color: #333;
-    padding: 40px 30px 30px;    /*top, right & left, bottom.*/
-    padding-right: 20px;
+    padding: 40px 20px 30px;
     border-radius: 20px;
-    min-width: 300px;
-    min-height: 400px;
-
-    /*25px rightward shadow (x-offset).
-    25px downward (y-offset).
-    Blur radius of 75px (softness of shadow).
-    Color is semi-transparent black (rgba(0, 0, 0, 0.25)).
-    */
-    box-shadow: 25px 25px 75px rgba(0, 0, 0, 0.25),  /*1st Shadow of box.*/
-    10px 10px 70px rgba(0, 0, 0, 0.25),     /*2nd Shadow of box.*/
-
-    /*Changes the shadow from an outer shadow to an inner shadow (inside the box).*/
-    inset -5px -5px 15px rgba(0, 0, 0, 0.25), 
-    inset 5px 5px 15px rgba(0, 0, 0, 0.25); 
+    width: 100%;
+    max-width: 360px; /* Limits size on desktop */
+    box-shadow: 25px 25px 75px rgba(0, 0, 0, 0.25),
+                10px 10px 70px rgba(0, 0, 0, 0.25),
+                inset -5px -5px 15px rgba(0, 0, 0, 0.25),
+                inset 5px 5px 15px rgba(0, 0, 0, 0.25);
 }
 
-.calculator {  /*This creates grids in the cal container.*/
+.calculator {
     display: grid;
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal flexible columns */
+    gap: 12px;
 }
 
-.calculator .value { /*This is for the values which show in cal.*/
-    grid-column: span 4; /*It creates 4 columns in the grid.*/
+.calculator .value {
+    grid-column: span 4;
     height: 100px;
-    width: calc(100% - 10px);
+    width: 100%;
     background-color: #a7af7c;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border-radius: 10px;
     border: none;
     outline: none;
-    font-size: 45px;
+    /* Font scales based on screen width */
+    font-size: clamp(30px, 8vw, 45px); 
     padding: 10px;
     text-align: right;
-    font-family: digital-7, Arial; /*This font is in its folder.*/
-    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: 'digital-7', Arial, sans-serif;
 }
 
-.calculator button {  /*This is for buttons formatting.*/
+.calculator button {
     border: none;
-    width: 80px;
-    height: 80px;
-
-    /*•	Syntax: linear-gradient(angle, color-stop1, color-stop2, ...)
-    •	100deg: The angle of the gradient.
-    o	0deg is bottom to top,
-    o	90deg is left to right,
-    o	100deg is slightly tilted
-    */
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Keeps buttons perfectly square */
     background: linear-gradient(180deg, #2f2f2f, #3f3f3f);
     color: #fff;
     border-radius: 10px;
     cursor: pointer;
     box-shadow: inset -8px 0 8px rgba(0, 0, 0, 0.15),
-    inset 0 -8px 8px rgba(0, 0, 0, 0.25),
-    0 0 0 2px rgba(0, 0, 0, 0.75),
-    10px 20px 25px rgba(0, 0, 0, 0.4);
-    position: relative; /*It will relative to itself.*/
+                inset 0 -8px 8px rgba(0, 0, 0, 0.25),
+                0 0 0 2px rgba(0, 0, 0, 0.75),
+                10px 20px 25px rgba(0, 0, 0, 0.4);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.calculator button ::before {
+.calculator button::before {
     content: '';
     position: absolute;
-    top: 3px;
-    left: 4px;
-    right: 12px;
-    bottom: 14px;
-    border-radius: 10px;
+    top: 5%;
+    left: 5%;
+    right: 8%;
+    bottom: 10%;
+    border-radius: 8px;
     background: linear-gradient(90deg, #2d2d2d, #4d4d4d);
-
-    /*The values for each shadow are in the order: offset-x, offset-y, 
-      blur-radius, color.*/
     box-shadow: -5px -5px 15px rgba(0, 0, 0, 0.1),
-    10px 5px 10px rgba(0, 0, 0, 0.15);
-
-    border-left: 1px solid rgba(0, 0, 0, 0.27);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.27);
-    border-top: 1px solid rgba(0, 0, 0, 0.6);
+                10px 5px 10px rgba(0, 0, 0, 0.15);
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-.calculator button i { /*This is for the text of button.*/
+.calculator button i {
     position: relative;
+    z-index: 2;
     text-transform: uppercase;
     font-weight: bold;
     font-style: normal;
-    font-size: 1.6em; /*It cause problem, Font size of the parent.*/
+    font-size: 1.4em;
 }
 
-.calculator button:active { /*when we click the button it will change color.*/
+.calculator button:active {
     filter: brightness(1.5);
 }
 
@@ -121,32 +100,26 @@ body { /*This is the area except of calculator.*/
     background: #f00;
 }
 
-/*
-•::before is a pseudo-element, used to insert content before the actual 
-    element's content.
-• It allows styling or adding visuals (like overlays, icons, backgrounds) 
-    without altering the actual HTML.
-*/
-.calculator button.clear ::before { /*Clear is a class like calculator.*/
-    background: linear-gradient(90deg, #d20000, rgba(255, 255, 255, 0.36));
-    border-left: 1px solid rgba(255, 255, 255, 0.27);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.27);
-    border-top: 1px solid rgba(255, 255, 255, 0.27);
+.calculator button.clear::before {
+    background: linear-gradient(90deg, #d20000, rgba(255, 255, 255, 0.2));
 }
 
 .calculator button.equal {
-    /*It is used to define how many rows or columns an item should 
-        span across.
-    It isn't a property itself_it's a value used with grid-row or 
-        grid-column.*/
-    grid-row: span 2; 
-    height: 180px;
+    grid-row: span 2;
+    height: 100%;
+    aspect-ratio: auto; /* Required to allow vertical spanning */
     background: #2196f3;
 }
 
 .calculator button.equal::before {
-    background: linear-gradient(90deg, #1479c9, rgba(255, 255, 255, 0.36));
-    border-left: 1px solid rgba(255, 255, 255, 0.27);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.27);
-    border-top: 1px solid rgba(255, 255, 255, 0.27);
+    background: linear-gradient(90deg, #1479c9, rgba(255, 255, 255, 0.2));
+}
+
+@media (max-width: 320px) {
+    .container {
+        padding: 20px 10px;
+    }
+    .calculator {
+        gap: 8px;
+    }
 }
